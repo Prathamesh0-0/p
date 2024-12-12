@@ -1,0 +1,35 @@
+#include <graphics.h>
+#include <conio.h>
+
+void scanfill(int x, int y, int boundary_color, int fill_color) {
+    if (getpixel(x, y) != boundary_color && getpixel(x, y) != fill_color) {
+        putpixel(x, y, fill_color);
+        scanfill(x + 1, y, boundary_color, fill_color);
+        scanfill(x - 1, y, boundary_color, fill_color);
+        scanfill(x, y + 1, boundary_color, fill_color);
+        scanfill(x, y - 1, boundary_color, fill_color);
+    }
+}
+
+int main()
+{
+    int gd = DETECT, gm;
+    initgraph(&gd, &gm, "C:\\turboC3\\bgi");
+
+    // Draw the triangle
+    line(150, 200, 300, 200);
+    line(220, 90, 300, 200);
+    line(150, 200, 220, 90);
+
+    // Draw the circle
+    circle(222, 160, 40);
+
+    // Fill only the circle using scanfill algorithm
+    int boundary_color = WHITE;
+    int fill_color = BLUE;
+    scanfill(222, 160, boundary_color, fill_color);
+
+    getch();
+    closegraph();
+    return 0;
+}
